@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <AssemblyName>Friendly.Electronics.Simulator</AssemblyName>
+        <RootNamespace>Friendly.Electronics.Simulator</RootNamespace>
+        <Company>Friendly Electronics</Company>
+        <Product>Friendly Simulator</Product>
+    </PropertyGroup>
+
+</Project>
