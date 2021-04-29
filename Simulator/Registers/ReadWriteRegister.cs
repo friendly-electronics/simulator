@@ -1,5 +1,8 @@
+using System.Diagnostics;
+
 namespace Friendly.Electronics.Simulator.Registers
 {
+    [DebuggerDisplay("{Name} ({Bits}bits) R/W: {Value}")]
     public class ReadWriteRegister : Register
     {
         private int _value;

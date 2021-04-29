@@ -1,4 +1,3 @@
-using System;
 using Friendly.Electronics.Simulator.Registers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
