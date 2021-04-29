@@ -21,6 +21,7 @@ namespace Friendly.Electronics.Simulator
             AllRegisters.Add("FSR", new ReadWriteRegister("FSR", 8));
             AllRegisters.Add("OSCCAL", new ReadWriteRegister("OSCCAL", 8));
             AllRegisters.Add("GPIO", new ReadWriteRegister("GPIO", 8));
+            AllRegisters.Add("TRISGPIO", new ReadWriteRegister("TRISGPIO", 8));
             AllRegisters.Add("CMCON0", new ReadWriteRegister("CMCON0", 8));
             AllRegisters.Add("Unimplemented", new ReadOnlyRegister("Unimplemented", 8));
             for (var i = 0; i < 16; i++)
@@ -43,6 +44,11 @@ namespace Friendly.Electronics.Simulator
             for (var i = 0; i < 16; i++)
                 RegisterFile[0x10 + i] = AllRegisters[$"GP{i.ToString()}"];
             
+            TrisRegisters = new Register[8];
+            for (var i = 0; i < 8; i++)
+                TrisRegisters[i] = AllRegisters["Unimplemented"];
+            TrisRegisters[0x06] = AllRegisters["TRISGPIO"];
+
             // PROGRAM MEMORY.
             ProgramMemory = new Register[512];
             for (var i = 0; i < 512; i++)

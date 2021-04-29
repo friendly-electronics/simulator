@@ -5,8 +5,9 @@ namespace Friendly.Electronics.Simulator
 {
     public class Microcontroller
     {
-        protected Dictionary<string, Register> AllRegisters;
-        protected Register[] RegisterFile;
-        protected Register[] ProgramMemory;
+        protected internal Dictionary<string, Register> AllRegisters;
+        protected internal Register[] RegisterFile;
+        protected internal Register[] TrisRegisters;
+        protected internal Register[] ProgramMemory;
     }
 }
