@@ -10,12 +10,12 @@ namespace Friendly.Electronics.Simulator
 
         public static long Now => _time;
 
-        public static void AddEvent(IClockable target, long time, int param)
+        public static void AddEvent(IClockable target, long offset, int param)
         {
-            var @event = new ClockEvent {Target = target, Time = time, Param = param};
+            var @event = new ClockEvent {Target = target, Time = _time + offset, Param = param};
             if (_nextEvent == null)
                 _nextEvent = @event;
-            else if (time < _nextEvent.Time)
+            else if (offset < _nextEvent.Time)
             {
                 @event.Next = _nextEvent;
                 _nextEvent = @event;
@@ -24,7 +24,7 @@ namespace Friendly.Electronics.Simulator
             {
                 var prev = _nextEvent;
                 var next = _nextEvent.Next;
-                while (next != null && time >= next.Time)
+                while (next != null && offset >= next.Time)
                 {
                     prev = next;
                     next = next.Next;
@@ -54,7 +54,7 @@ namespace Friendly.Electronics.Simulator
                 if (eventTimeMs > currentTimeMs)
                     Thread.Sleep((int)(eventTimeMs - currentTimeMs));
                 _time = @event.Time;
-                @event.Target.Clock(@event.Time, @event.Param);
+                @event.Target.Update(@event.Time, @event.Param);
                 @event = GetNextEvent();
             }
             sw.Stop();
@@ -71,6 +71,6 @@ namespace Friendly.Electronics.Simulator
 
     public interface IClockable
     {
-        void Clock(long time, int param);
+        void Update(long time, int param);
     }
 }

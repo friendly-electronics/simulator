@@ -53,6 +53,9 @@ namespace Friendly.Electronics.Simulator
             ProgramMemory = new Register[512];
             for (var i = 0; i < 512; i++)
                 ProgramMemory[i] = AllRegisters[$"PM{(i % 256).ToString()}"];
+            
+            // Internal Oscillator.
+            Oscillator = new InternalOscillator(4000000);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Friendly.Electronics.Simulator
         protected internal Register[] RegisterFile;
         protected internal Register[] TrisRegisters;
         protected internal Register[] ProgramMemory;
+        protected internal InternalOscillator Oscillator;
     }
 }
