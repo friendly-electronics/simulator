@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Friendly.Electronics.Simulator.Instructions;
 using Friendly.Electronics.Simulator.Registers;
 
 namespace Friendly.Electronics.Simulator
@@ -8,6 +9,7 @@ namespace Friendly.Electronics.Simulator
     public class PIC10F200 : Microcontroller
     {
         private ProgramCounterUpdater _programCounterUpdater;
+        private InstructionExecutor _instructionExecutor;
         
         public PIC10F200()
         {
@@ -60,6 +62,9 @@ namespace Friendly.Electronics.Simulator
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
             Oscillator.LogicLevelChanged += OnClock;
+
+            _instructionExecutor = new InstructionExecutor(this);
+            Clock += _instructionExecutor.Update;
             
             _programCounterUpdater = new ProgramCounterUpdater(this);
             Clock += level => { if (level) Console.WriteLine($"Clock: {(Simulator.Clock.Now / 1000).ToString()}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
