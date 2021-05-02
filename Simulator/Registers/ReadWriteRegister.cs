@@ -17,7 +17,7 @@ namespace Friendly.Electronics.Simulator.Registers
                 _mask |= mask;
                 mask <<= 1;
             }
-            _value = value & mask;
+            _value = value & _mask;
         }
         
         public override int Get()

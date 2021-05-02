@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Friendly.Electronics.Simulator.Registers;
 
@@ -6,17 +7,19 @@ namespace Friendly.Electronics.Simulator
     // ReSharper disable once InconsistentNaming
     public class PIC10F200 : Microcontroller
     {
-
+        private ProgramCounterUpdater _programCounterUpdater;
+        
         public PIC10F200()
         {
             // ALL REGISTERS.
             AllRegisters = new Dictionary<string, Register>();
             AllRegisters.Add("W", new ReadWriteRegister("W", 8));
             AllRegisters.Add("IR", new ReadWriteRegister("IR", 12));
+            AllRegisters.Add("PC", new ReadWriteRegister("PC", 9, 0b_1_1111_1111));
             AllRegisters.Add("OPTION", new ReadWriteRegister("OPTION", 8));
             AllRegisters.Add("INDF", new ReadWriteRegister("INDF", 8));
             AllRegisters.Add("TMR0", new ReadWriteRegister("TMR0", 8));
-            AllRegisters.Add("PCL", new ReadWriteRegister("PCL", 8));
+            AllRegisters.Add("PCL", new ReadWriteRegister("PCL", 8, 0b_1111_1111));
             AllRegisters.Add("STATUS", new ReadWriteRegister("STATUS", 8));
             AllRegisters.Add("FSR", new ReadWriteRegister("FSR", 8));
             AllRegisters.Add("OSCCAL", new ReadWriteRegister("OSCCAL", 8));
@@ -55,7 +58,14 @@ namespace Friendly.Electronics.Simulator
                 ProgramMemory[i] = AllRegisters[$"PM{(i % 256).ToString()}"];
             
             // Internal Oscillator.
-            Oscillator = new InternalOscillator(4000000);
+            Oscillator = new InternalOscillator(1000000);
+            Oscillator.LogicLevelChanged += OnClock;
+            
+            _programCounterUpdater = new ProgramCounterUpdater(this);
+            Clock += level => { if (level) Console.WriteLine($"Clock: {(Simulator.Clock.Now / 1000).ToString()}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
+            Clock += _programCounterUpdater.Update;
+            
+            Oscillator.Start();
         }
     }
 }

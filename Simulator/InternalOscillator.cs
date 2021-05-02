@@ -36,10 +36,10 @@ namespace Friendly.Electronics.Simulator
             _level = false;
         }
 
-        private void ChangeFrequency(float frequency)
+        private void ChangeFrequency(double frequency)
         {
             //_frequency = frequency;
-            _step = (int)(1000000000L / frequency / 2.0f);
+            _step = (int)(1000000000.0 / frequency / 2.0);
         }
 
         public void Update(long time, int param)

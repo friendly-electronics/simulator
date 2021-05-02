@@ -1,14 +1,25 @@
+using System;
 using System.Collections.Generic;
 using Friendly.Electronics.Simulator.Registers;
 
 namespace Friendly.Electronics.Simulator
 {
-    public class Microcontroller
+    public abstract class Microcontroller
     {
         protected internal Dictionary<string, Register> AllRegisters;
         protected internal Register[] RegisterFile;
         protected internal Register[] TrisRegisters;
         protected internal Register[] ProgramMemory;
         protected internal InternalOscillator Oscillator;
+
+        protected event LogicLevelChanged Clock;
+
+        private bool _currentClockLevel;
+        protected void OnClock(bool level)
+        {
+            if (_currentClockLevel == level) return;
+            _currentClockLevel = level;
+            Clock?.Invoke(level);
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Threading;
 
@@ -7,6 +8,7 @@ namespace Friendly.Electronics.Simulator
     {
         private static ClockEvent _nextEvent;
         private static long _time;
+        private static readonly Stopwatch Timer = new Stopwatch();
 
         public static long Now => _time;
 
@@ -35,29 +37,38 @@ namespace Friendly.Electronics.Simulator
             }
         }
 
-        private static ClockEvent GetNextEvent()
+        private static ClockEvent PopNextEvent()
         {
-            var result = _nextEvent;
+            return _nextEvent;
+        }
+        
+        private static void RemoveNextEvent()
+        {
             _nextEvent = _nextEvent?.Next;
-            return result;
         }
 
-        public static void Run()
+        public static void Run(bool realTime = true, double speedCoefficient = 1, long runTime = long.MaxValue)
         {
-            var sw = new Stopwatch();
-            sw.Start();
-            var @event = GetNextEvent();
+            runTime = _time + runTime;
+            Timer.Start();
+            var @event = PopNextEvent();
             while (@event != null)
             {
-                var eventTimeMs = @event.Time / 1000000;
-                var currentTimeMs = sw.ElapsedMilliseconds;
-                if (eventTimeMs > currentTimeMs)
-                    Thread.Sleep((int)(eventTimeMs - currentTimeMs));
+                if (@event.Time >= runTime)
+                    break;
+                RemoveNextEvent();
+                if (realTime)
+                {
+                    var eventTimeMs = (long) (@event.Time / 1000000.0 / speedCoefficient);
+                    var currentTimeMs = Timer.Elapsed.TotalMilliseconds;
+                    if (eventTimeMs > currentTimeMs)
+                        Thread.Sleep((int) (eventTimeMs - currentTimeMs));
+                }
                 _time = @event.Time;
                 @event.Target.Update(@event.Time, @event.Param);
-                @event = GetNextEvent();
+                @event = PopNextEvent();
             }
-            sw.Stop();
+            Timer.Stop();
         }
         
         private class ClockEvent
