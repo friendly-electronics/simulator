@@ -21,8 +21,7 @@ namespace Friendly.Electronics.Simulator
         
         public void Update(bool level)
         {
-            if (!level) return;
-            if (_cycle == 3)
+            if (_cycle == 3 && !level)
             {
                 var pc = _pc.Value;
                 pc++;
@@ -31,7 +30,8 @@ namespace Friendly.Electronics.Simulator
                 _ir.Value = _programMemory[_pc.Value].Value;
                 Console.WriteLine("---");
             }
-            _cycle = (_cycle + 1) & 0b_11;
+            if (!level)
+                _cycle = (_cycle + 1) & 0b_11;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Friendly.Electronics.Simulator
     public class PIC10F200 : Microcontroller
     {
         private ProgramCounterUpdater _programCounterUpdater;
+        private InstructionDecoder _instructionDecoder;
         private InstructionExecutor _instructionExecutor;
         
         public PIC10F200()
@@ -59,11 +60,17 @@ namespace Friendly.Electronics.Simulator
             for (var i = 0; i < 512; i++)
                 ProgramMemory[i] = AllRegisters[$"PM{(i % 256).ToString()}"];
             
+            // INSTRUCTIONS.
+            AllInstructions = new Dictionary<string, Instruction>();
+            AllInstructions.Add("NOP", new NOP());
+
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
             Oscillator.LogicLevelChanged += OnClock;
+            
+            _instructionDecoder = new InstructionDecoder(this);
 
-            _instructionExecutor = new InstructionExecutor(this);
+            _instructionExecutor = new InstructionExecutor(this, _instructionDecoder);
             Clock += _instructionExecutor.Update;
             
             _programCounterUpdater = new ProgramCounterUpdater(this);
