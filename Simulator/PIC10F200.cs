@@ -64,6 +64,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions = new Dictionary<string, Instruction>();
             AllInstructions.Add("NOP", new NOP());
             AllInstructions.Add("OPTION", new OPTION(this));
+            AllInstructions.Add("TRIS", new TRIS(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);

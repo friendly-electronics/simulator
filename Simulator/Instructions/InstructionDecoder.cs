@@ -4,7 +4,7 @@
 namespace Friendly.Electronics.Simulator.Instructions
 {
     
-    // 000000 000000	NOP —	    No Operation
+    // 000000 000000	NOP —	    No Operation            
     // 000000 000010	OPTION —	Load OPTION register
     // 000000 000011	SLEEP —	    Go into Standby mode
     // 000000 000100	CLRWDT	    Clear Watchdog Timer
@@ -48,7 +48,7 @@ namespace Friendly.Electronics.Simulator.Instructions
         private readonly Instruction _nop;
         private readonly Instruction _option;
         // private readonly Instruction _sleep;
-        // private readonly Instruction _tris;
+        private readonly Instruction _tris;
         // private readonly Instruction _clrwdt;
         // private readonly Instruction _clrw;
         // private readonly Instruction _clrf;
@@ -60,7 +60,7 @@ namespace Friendly.Electronics.Simulator.Instructions
             _nop = allInstructions["NOP"];
             _option = allInstructions["OPTION"];
             // _sleep = allInstructions["SLEEP"];
-            // _tris = allInstructions["TRIS"];
+            _tris = allInstructions["TRIS"];
             // _clrwdt = allInstructions["CLRWDT"];
             // _clrw = allInstructions["CLRW"];
             // _clrf = allInstructions["CLRF"];
@@ -150,8 +150,8 @@ namespace Friendly.Electronics.Simulator.Instructions
                         subCode == 0b_000010 ? _option :
             //             subCode == 0b_000011 ? _sleep :
             //             subCode == 0b_000100 ? _clrwdt :
-            //             _tris;
-            //     return (subCode & 0b_100000) > 0 ? _movwf :
+                        _tris;
+                return // (subCode & 0b_100000) > 0 ? _movwf :
                         _nop;
             }
 
