@@ -30,18 +30,18 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
             if (d == 0)
             {
                 if (value1 != result)
-                    Assert.AreNotEqual(value1, debugger.AllRegisters["W"].Value, "ADDWF should store result in W register if d = 0.");
-                Assert.AreEqual(value2, debugger.RegisterFile[f].Value, "ADDWF should not change [f] register if d = 0.");
-                Assert.AreEqual(result, debugger.AllRegisters["W"].Value, "ADDWF should calculate sum of W and [f] registers correctly.");
+                    Assert.AreNotEqual(value1, debugger.AllRegisters["W"].Value, "ANDWF should store result in W register if d = 0.");
+                Assert.AreEqual(value2, debugger.RegisterFile[f].Value, "ANDWF should not change [f] register if d = 0.");
+                Assert.AreEqual(result, debugger.AllRegisters["W"].Value, "ANDWF should calculate W AND [f] correctly.");
             }
             else
             {
                 if (value2 != result)
-                    Assert.AreNotEqual(value2, debugger.RegisterFile[f].Value, "ADDWF should store result in [f] register if d = 1.");
-                Assert.AreEqual(value1, debugger.AllRegisters["W"].Value, "ADDWF should not change W register if d = 1.");
-                Assert.AreEqual(result, debugger.RegisterFile[f].Value, "ADDWF should calculate sum of W and [f] registers correctly.");
+                    Assert.AreNotEqual(value2, debugger.RegisterFile[f].Value, "ANDWF should store result in [f] register if d = 1.");
+                Assert.AreEqual(value1, debugger.AllRegisters["W"].Value, "ANDWF should not change W register if d = 1.");
+                Assert.AreEqual(result, debugger.RegisterFile[f].Value, "ANDWF should calculate W AND [f] correctly.");
             }
-            Assert.AreEqual(z, (debugger.AllRegisters["STATUS"].Value & 0b_0000_0100) > 0, "ADDWF should set Z flag in STATUS register if result is 0 and reset if not.");
+            Assert.AreEqual(z, (debugger.AllRegisters["STATUS"].Value & 0b_0000_0100) > 0, "ANDWF should set Z flag in STATUS register if result is 0 and reset if not.");
         }
     }
 }

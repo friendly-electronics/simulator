@@ -33,16 +33,16 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
             if (d == 0)
             {
                 if (value2 != result)
-                    Assert.AreNotEqual(value2, debugger.AllRegisters["W"].Value, "ADDWF should store result in W register if d = 0.");
-                Assert.AreEqual(value1, debugger.RegisterFile[f].Value, "ADDWF should not change [f] register if d = 0.");
-                Assert.AreEqual(result, debugger.AllRegisters["W"].Value, "ADDWF should calculate sub of [f] and W registers correctly.");
+                    Assert.AreNotEqual(value2, debugger.AllRegisters["W"].Value, "SUBWF should store result in W register if d = 0.");
+                Assert.AreEqual(value1, debugger.RegisterFile[f].Value, "SUBWF should not change [f] register if d = 0.");
+                Assert.AreEqual(result, debugger.AllRegisters["W"].Value, "SUBWF should calculate sub of [f] and W registers correctly.");
             }
             else
             {
                 if (value1 != result)
-                    Assert.AreNotEqual(value1, debugger.RegisterFile[f].Value, "ADDWF should store result in [f] register if d = 1.");
-                Assert.AreEqual(value2, debugger.AllRegisters["W"].Value, "ADDWF should not change W register if d = 1.");
-                Assert.AreEqual(result, debugger.RegisterFile[f].Value, "ADDWF should calculate sub of [f] and W registers correctly.");
+                    Assert.AreNotEqual(value1, debugger.RegisterFile[f].Value, "SUBWF should store result in [f] register if d = 1.");
+                Assert.AreEqual(value2, debugger.AllRegisters["W"].Value, "SUBWF should not change W register if d = 1.");
+                Assert.AreEqual(result, debugger.RegisterFile[f].Value, "SUBWF should calculate sub of [f] and W registers correctly.");
 
             }
             Assert.AreEqual(z, (debugger.AllRegisters["STATUS"].Value & 0b_0000_0100) > 0, "ADDWF should set Z flag in STATUS register if result is 0 and reset if not.");
