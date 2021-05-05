@@ -8,6 +8,7 @@ namespace Friendly.Electronics.Simulator.Tests
         [TestMethod]
         public void OscillatorShouldOscillate()
         {
+            Clock.Reset();
             var oscillator = new InternalOscillator(1000000);    // MHz
             var currentLevel = false;
             var currentIteration = 0;

@@ -46,7 +46,7 @@ namespace Friendly.Electronics.Simulator.Instructions
     {
         private readonly Instruction[] _instructions;
         private readonly Instruction _nop;
-        // private readonly Instruction _option;
+        private readonly Instruction _option;
         // private readonly Instruction _sleep;
         // private readonly Instruction _tris;
         // private readonly Instruction _clrwdt;
@@ -58,7 +58,7 @@ namespace Friendly.Electronics.Simulator.Instructions
         {
             var allInstructions = microcontroller.AllInstructions;
             _nop = allInstructions["NOP"];
-            // _option = allInstructions["OPTION"];
+            _option = allInstructions["OPTION"];
             // _sleep = allInstructions["SLEEP"];
             // _tris = allInstructions["TRIS"];
             // _clrwdt = allInstructions["CLRWDT"];
@@ -141,18 +141,19 @@ namespace Friendly.Electronics.Simulator.Instructions
             if (opcode >= 0b_000010)
                 return _instructions[opcode];
 
-            // if (opcode == 0)
-            // {
-            //     var subCode = instructionCode & 0b_111111;
-            //     if (subCode <= 0b_000111)
-            //         return
+            if (opcode == 0)
+            {
+                var subCode = instructionCode & 0b_111111; 
+                if (subCode <= 0b_000111) 
+                    return
             //             subCode == 0b_000000 ? _nop :
-            //             subCode == 0b_000010 ? _option :
+                        subCode == 0b_000010 ? _option :
             //             subCode == 0b_000011 ? _sleep :
             //             subCode == 0b_000100 ? _clrwdt :
             //             _tris;
-            //     return (subCode & 0b_100000) > 0 ? _movwf : _nop;
-            // }
+            //     return (subCode & 0b_100000) > 0 ? _movwf :
+                        _nop;
+            }
 
             // if (opcode == 1)
             // {

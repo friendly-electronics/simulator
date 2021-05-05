@@ -4,11 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Friendly.Electronics.Simulator.Tests.Instructions
 {
-    [TestClass]
-    public class NOPTests
+    public partial class Instructions
     {
         [TestMethod]
-        public void NOPInstructionShouldDoNothing()
+        public void NOP()
         {
             var micro = new PIC10F200();
             var debugger = new MicrocontrollerDebugger(micro);

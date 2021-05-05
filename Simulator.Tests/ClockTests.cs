@@ -10,6 +10,7 @@ namespace Friendly.Electronics.Simulator.Tests
         [TestMethod]
         public void EventsShouldBeSorted()
         {
+            Clock.Reset();
             
             var calls = new List<Tuple<object, long>>();
             var call = new Action<object, long, int>((target, time, i) => calls.Add(new Tuple<object, long>(target, time)));

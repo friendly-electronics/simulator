@@ -19,7 +19,7 @@ namespace Friendly.Electronics.Simulator
             AllRegisters.Add("W", new ReadWriteRegister("W", 8));
             AllRegisters.Add("IR", new ReadWriteRegister("IR", 12));
             AllRegisters.Add("PC", new ReadWriteRegister("PC", 9, 0b_1_1111_1111));
-            AllRegisters.Add("OPTION", new ReadWriteRegister("OPTION", 8));
+            AllRegisters.Add("OPTION", new ReadWriteRegister("OPTION", 8, 0b_1111_1111));
             AllRegisters.Add("INDF", new ReadWriteRegister("INDF", 8));
             AllRegisters.Add("TMR0", new ReadWriteRegister("TMR0", 8));
             AllRegisters.Add("PCL", new ReadWriteRegister("PCL", 8, 0b_1111_1111));
@@ -63,6 +63,7 @@ namespace Friendly.Electronics.Simulator
             // INSTRUCTIONS.
             AllInstructions = new Dictionary<string, Instruction>();
             AllInstructions.Add("NOP", new NOP());
+            AllInstructions.Add("OPTION", new OPTION(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);

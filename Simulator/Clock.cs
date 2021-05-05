@@ -70,6 +70,13 @@ namespace Friendly.Electronics.Simulator
             }
             Timer.Stop();
         }
+
+        public static void Reset()
+        {
+            _nextEvent = null;
+            _time = 0;
+            Timer.Reset();
+        }
         
         private class ClockEvent
         {
