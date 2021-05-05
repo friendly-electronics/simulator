@@ -70,6 +70,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("CLRF", new CLRF(this));
             AllInstructions.Add("ADDWF", new ADDWF(this));
             AllInstructions.Add("SUBWF", new SUBWF(this));
+            AllInstructions.Add("ANDWF", new ANDWF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
