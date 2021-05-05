@@ -1,5 +1,6 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable ConvertIfStatementToSwitchStatement
+// ReSharper disable InvertIf
 
 namespace Friendly.Electronics.Simulator.Instructions
 {
@@ -50,7 +51,7 @@ namespace Friendly.Electronics.Simulator.Instructions
         // private readonly Instruction _sleep;
         private readonly Instruction _tris;
         // private readonly Instruction _clrwdt;
-        // private readonly Instruction _clrw;
+        private readonly Instruction _clrw;
         // private readonly Instruction _clrf;
         private readonly Instruction _movwf;
 
@@ -62,7 +63,7 @@ namespace Friendly.Electronics.Simulator.Instructions
             // _sleep = allInstructions["SLEEP"];
             _tris = allInstructions["TRIS"];
             // _clrwdt = allInstructions["CLRWDT"];
-            // _clrw = allInstructions["CLRW"];
+            _clrw = allInstructions["CLRW"];
             // _clrf = allInstructions["CLRF"];
             _movwf = allInstructions["MOVWF"];
             
@@ -154,11 +155,13 @@ namespace Friendly.Electronics.Simulator.Instructions
                 return (subCode & 0b_100000) > 0 ? _movwf : _nop;
             }
 
-            // if (opcode == 1)
-            // {
-            //     var subCode = instructionCode & 0b_111111;
-            //     return subCode == 0 ? _clrw : subCode >= 0b_100000 ? _clrf : _nop;
-            // }
+            if (opcode == 1)
+            {
+                var subCode = instructionCode & 0b_111111;
+                return subCode == 0 ? _clrw : 
+                    // subCode >= 0b_100000 ? _clrf :
+                    _nop;
+            }
 
             return _nop;
         }
