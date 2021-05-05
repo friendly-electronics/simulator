@@ -67,6 +67,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("TRIS", new TRIS(this));
             AllInstructions.Add("MOVWF", new MOVWF(this));
             AllInstructions.Add("CLRW", new CLRW(this));
+            AllInstructions.Add("CLRF", new CLRF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);

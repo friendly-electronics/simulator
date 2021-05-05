@@ -6,7 +6,7 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
 {
     public partial class Instructions
     {
-        [DataTestMethod]
+        [TestMethod]
         public void CLRW()
         {
             Clock.Reset();
