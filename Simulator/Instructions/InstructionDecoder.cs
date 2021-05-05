@@ -52,7 +52,7 @@ namespace Friendly.Electronics.Simulator.Instructions
         // private readonly Instruction _clrwdt;
         // private readonly Instruction _clrw;
         // private readonly Instruction _clrf;
-        // private readonly Instruction _movwf;
+        private readonly Instruction _movwf;
 
         public InstructionDecoder(Microcontroller microcontroller)
         {
@@ -64,7 +64,7 @@ namespace Friendly.Electronics.Simulator.Instructions
             // _clrwdt = allInstructions["CLRWDT"];
             // _clrw = allInstructions["CLRW"];
             // _clrf = allInstructions["CLRF"];
-            // _movwf = allInstructions["MOVWF"];
+            _movwf = allInstructions["MOVWF"];
             
             _instructions = new []
             {
@@ -146,13 +146,12 @@ namespace Friendly.Electronics.Simulator.Instructions
                 var subCode = instructionCode & 0b_111111; 
                 if (subCode <= 0b_000111) 
                     return
-            //             subCode == 0b_000000 ? _nop :
+                        subCode == 0b_000000 ? _nop :
                         subCode == 0b_000010 ? _option :
             //             subCode == 0b_000011 ? _sleep :
             //             subCode == 0b_000100 ? _clrwdt :
                         _tris;
-                return // (subCode & 0b_100000) > 0 ? _movwf :
-                        _nop;
+                return (subCode & 0b_100000) > 0 ? _movwf : _nop;
             }
 
             // if (opcode == 1)
