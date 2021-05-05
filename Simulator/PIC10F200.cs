@@ -33,7 +33,7 @@ namespace Friendly.Electronics.Simulator
             for (var i = 0; i < 16; i++)
                 AllRegisters.Add($"GP{i.ToString()}", new ReadWriteRegister($"GP{i.ToString()}", 8));
             for (var i = 0; i < 256; i++)
-                AllRegisters.Add($"PM{i.ToString()}", new ReadWriteRegister($"PM{i.ToString()}", 8));
+                AllRegisters.Add($"PM{i.ToString()}", new ReadWriteRegister($"PM{i.ToString()}", 12));
 
             // REGISTER FILE.
             RegisterFile = new Register[32];
@@ -68,6 +68,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("MOVWF", new MOVWF(this));
             AllInstructions.Add("CLRW", new CLRW(this));
             AllInstructions.Add("CLRF", new CLRF(this));
+            AllInstructions.Add("ADDWF", new ADDWF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
