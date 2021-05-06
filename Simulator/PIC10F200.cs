@@ -65,17 +65,21 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("NOP", new NOP());
             AllInstructions.Add("OPTION", new OPTION(this));
             AllInstructions.Add("TRIS", new TRIS(this));
-            AllInstructions.Add("MOVWF", new MOVWF(this));
             AllInstructions.Add("CLRW", new CLRW(this));
-            AllInstructions.Add("CLRF", new CLRF(this));
+
+            AllInstructions.Add("MOVWF", new MOVWF(this));
             AllInstructions.Add("ADDWF", new ADDWF(this));
             AllInstructions.Add("SUBWF", new SUBWF(this));
             AllInstructions.Add("ANDWF", new ANDWF(this));
             AllInstructions.Add("IORWF", new IORWF(this));
             AllInstructions.Add("XORWF", new XORWF(this));
+            
             AllInstructions.Add("ANDLW", new ANDLW(this));
             AllInstructions.Add("IORLW", new IORLW(this));
             AllInstructions.Add("XORLW", new XORLW(this));
+            
+            AllInstructions.Add("CLRF", new CLRF(this));
+            AllInstructions.Add("BCF", new BCF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
