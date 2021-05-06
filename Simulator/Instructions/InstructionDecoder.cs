@@ -129,10 +129,10 @@ namespace Friendly.Electronics.Simulator.Instructions
                 /* 11 10 01 */ allInstructions["ANDLW"],
                 /* 11 10 10 */ allInstructions["ANDLW"],
                 /* 11 10 11 */ allInstructions["ANDLW"],
-                /* 11 11 00 */ allInstructions["NOP"],    // allInstructions["XORLW"],
-                /* 11 11 01 */ allInstructions["NOP"],    // allInstructions["XORLW"],
-                /* 11 11 10 */ allInstructions["NOP"],    // allInstructions["XORLW"],
-                /* 11 11 11 */ allInstructions["NOP"],    // allInstructions["XORLW"],
+                /* 11 11 00 */ allInstructions["XORLW"],
+                /* 11 11 01 */ allInstructions["XORLW"],
+                /* 11 11 10 */ allInstructions["XORLW"],
+                /* 11 11 11 */ allInstructions["XORLW"],
             };
         }
 

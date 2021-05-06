@@ -75,6 +75,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("XORWF", new XORWF(this));
             AllInstructions.Add("ANDLW", new ANDLW(this));
             AllInstructions.Add("IORLW", new IORLW(this));
+            AllInstructions.Add("XORLW", new XORLW(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
