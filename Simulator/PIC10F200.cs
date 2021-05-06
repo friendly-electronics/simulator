@@ -79,6 +79,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("XORLW", new XORLW(this));
             
             AllInstructions.Add("CLRF", new CLRF(this));
+            AllInstructions.Add("MOVF", new MOVF(this));
             AllInstructions.Add("BCF", new BCF(this));
             AllInstructions.Add("BSF", new BSF(this));
             AllInstructions.Add("COMF", new COMF(this));
