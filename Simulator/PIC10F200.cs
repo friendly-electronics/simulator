@@ -82,6 +82,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("BCF", new BCF(this));
             AllInstructions.Add("BSF", new BSF(this));
             AllInstructions.Add("COMF", new COMF(this));
+            AllInstructions.Add("DECF", new DECF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
