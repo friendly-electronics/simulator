@@ -78,7 +78,7 @@ namespace Friendly.Electronics.Simulator.Instructions
                 /* 00 01 10 */ allInstructions["XORWF"],
                 /* 00 01 11 */ allInstructions["ADDWF"],
                 /* 00 10 00 */ allInstructions["NOP"],    // allInstructions["MOVF"],
-                /* 00 10 01 */ allInstructions["NOP"],    // allInstructions["COMF"],
+                /* 00 10 01 */ allInstructions["COMF"],
                 /* 00 10 10 */ allInstructions["NOP"],    // allInstructions["INCF"],
                 /* 00 10 11 */ allInstructions["NOP"],    // allInstructions["DECFSZ"],
                 /* 00 11 00 */ allInstructions["NOP"],    // allInstructions["RRF"],
