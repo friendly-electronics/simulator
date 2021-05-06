@@ -74,18 +74,19 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("IORWF", new IORWF(this));
             AllInstructions.Add("XORWF", new XORWF(this));
             
+            AllInstructions.Add("MOVLW", new MOVLW(this));
             AllInstructions.Add("ANDLW", new ANDLW(this));
             AllInstructions.Add("IORLW", new IORLW(this));
             AllInstructions.Add("XORLW", new XORLW(this));
             
             AllInstructions.Add("CLRF", new CLRF(this));
             AllInstructions.Add("MOVF", new MOVF(this));
-            AllInstructions.Add("BCF", new BCF(this));
-            AllInstructions.Add("BSF", new BSF(this));
             AllInstructions.Add("COMF", new COMF(this));
             AllInstructions.Add("INCF", new INCF(this));
             AllInstructions.Add("DECF", new DECF(this));
             AllInstructions.Add("SWAPF", new SWAPF(this));
+            AllInstructions.Add("BCF", new BCF(this));
+            AllInstructions.Add("BSF", new BSF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
