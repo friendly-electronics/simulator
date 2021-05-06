@@ -85,6 +85,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("COMF", new COMF(this));
             AllInstructions.Add("INCF", new INCF(this));
             AllInstructions.Add("DECF", new DECF(this));
+            AllInstructions.Add("SWAPF", new SWAPF(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
