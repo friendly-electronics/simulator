@@ -89,6 +89,8 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("RRF", new RRF(this));
             AllInstructions.Add("BCF", new BCF(this));
             AllInstructions.Add("BSF", new BSF(this));
+            
+            AllInstructions.Add("GOTO", new GOTO(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
@@ -100,7 +102,7 @@ namespace Friendly.Electronics.Simulator
             _instructionExecutor = new InstructionExecutor(this, _instructionDecoder);
             Clock += _instructionExecutor.Update;
             
-            Clock += level => { if (level) Console.WriteLine($"Clock: {(Simulator.Clock.Now / 1000).ToString()}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
+            Clock += level => { if (level) Console.WriteLine($"Clock: {(Simulator.Clock.Now).ToString("N0")}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
 
             Oscillator.Start();
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics;
 using System.Threading;
 
@@ -55,7 +54,10 @@ namespace Friendly.Electronics.Simulator
             while (@event != null)
             {
                 if (@event.Time >= runTime)
+                {
+                    _time = runTime;
                     break;
+                }
                 RemoveNextEvent();
                 if (realTime)
                 {
