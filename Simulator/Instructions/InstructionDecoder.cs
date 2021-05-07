@@ -84,7 +84,7 @@ namespace Friendly.Electronics.Simulator.Instructions
                 /* 00 11 00 */ allInstructions["RRF"],
                 /* 00 11 01 */ allInstructions["RLF"],
                 /* 00 11 10 */ allInstructions["SWAPF"],
-                /* 00 11 11 */ allInstructions["NOP"],    // allInstructions["INCFSZ"],
+                /* 00 11 11 */ allInstructions["INCFSZ"],
                 /* 01 00 00 */ allInstructions["BCF"],
                 /* 01 00 01 */ allInstructions["BCF"],
                 /* 01 00 10 */ allInstructions["BCF"],
