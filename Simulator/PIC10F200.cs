@@ -92,6 +92,7 @@ namespace Friendly.Electronics.Simulator
             
             AllInstructions.Add("GOTO", new GOTO(this));
             AllInstructions.Add("INCFSZ", new INCFSZ(this));
+            AllInstructions.Add("DECFSZ", new DECFSZ(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
