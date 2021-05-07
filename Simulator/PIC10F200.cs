@@ -94,15 +94,14 @@ namespace Friendly.Electronics.Simulator
             Oscillator = new InternalOscillator(1000000);
             Oscillator.LogicLevelChanged += OnClock;
             
+            _programCounterUpdater = new ProgramCounterUpdater(this);
+            Clock += _programCounterUpdater.Update;
             _instructionDecoder = new InstructionDecoder(this);
-
             _instructionExecutor = new InstructionExecutor(this, _instructionDecoder);
             Clock += _instructionExecutor.Update;
             
-            _programCounterUpdater = new ProgramCounterUpdater(this);
             Clock += level => { if (level) Console.WriteLine($"Clock: {(Simulator.Clock.Now / 1000).ToString()}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
-            Clock += _programCounterUpdater.Update;
-            
+
             Oscillator.Start();
         }
     }

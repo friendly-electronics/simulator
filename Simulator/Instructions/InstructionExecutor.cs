@@ -20,7 +20,7 @@ namespace Friendly.Electronics.Simulator.Instructions
         
         public void Update(bool level)
         {
-            if (level && _cycle == 0)
+            if (_cycle == 0 && level)
             {
                 var instructionCode = _ir.Value;
                 _instruction = _instructionDecoder.Decode(instructionCode);    // Decode instruction.

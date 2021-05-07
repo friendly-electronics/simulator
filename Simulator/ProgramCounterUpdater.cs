@@ -21,14 +21,13 @@ namespace Friendly.Electronics.Simulator
         
         public void Update(bool level)
         {
-            if (_cycle == 3 && !level)
+            if (_cycle == 0 && level)
             {
-                var pc = _pc.Value;
-                pc++;
-                _pc.Value = pc;
-                _pcl.Value = pc;
+                // Latch instruction in the IR register.
                 _ir.Value = _programMemory[_pc.Value].Value;
-                Console.WriteLine("---");
+                
+                // Increment
+                _pcl.Value = _pc.Value += 1;
             }
             if (!level)
                 _cycle = (_cycle + 1) & 0b_11;
