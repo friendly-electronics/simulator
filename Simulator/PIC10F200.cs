@@ -85,6 +85,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("INCF", new INCF(this));
             AllInstructions.Add("DECF", new DECF(this));
             AllInstructions.Add("SWAPF", new SWAPF(this));
+            AllInstructions.Add("RLF", new RLF(this));
             AllInstructions.Add("BCF", new BCF(this));
             AllInstructions.Add("BSF", new BSF(this));
 
