@@ -8,8 +8,4 @@
         <Product>Friendly Simulator</Product>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Utilities" />
-    </ItemGroup>
-
 </Project>

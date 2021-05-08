@@ -54,6 +54,11 @@ namespace Friendly.Electronics.Simulator
             for (var i = 0; i < 8; i++)
                 TrisRegisters[i] = AllRegisters["Unimplemented"];
             TrisRegisters[0x06] = AllRegisters["TRISGPIO"];
+            
+            // HARDWARE STACK.
+            Stack = new HardwareStack(2);
+            for (var i = 0; i < 2; i++)
+                AllRegisters.Add($"ST{i}", new StackRegister($"ST{i}", 8, 0b_1111_1111, Stack, i));
 
             // PROGRAM MEMORY.
             ProgramMemory = new Register[512];
