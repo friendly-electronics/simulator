@@ -101,6 +101,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("BTFSC", new BTFSC(this));
             AllInstructions.Add("BTFSS", new BTFSS(this));
             AllInstructions.Add("CALL", new CALL(this));
+            AllInstructions.Add("RETLW", new RETLW(this));
 
             // Internal Oscillator.
             Oscillator = new InternalOscillator(1000000);
