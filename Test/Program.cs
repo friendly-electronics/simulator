@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Friendly.Electronics.Simulator;
 
 namespace Test
@@ -15,12 +16,38 @@ namespace Test
             var speed = 1.0; // 1.0 / 1000000 * 4;    // 1 instruction / sec.
             var runTime = 16666666;
 
+            TestPerformance();
+            
             while (true)
             {
                 Clock.Run(true, speed, runTime);
                 PrintStatus(debugger);
             }
             
+        }
+
+        private static void TestPerformance()
+        {
+            var runTime = 1000000000;
+            var timer = new Stopwatch();
+            long totalTime = 0;
+
+            for (var i = 0; i < 11; i++)
+            {
+                timer.Restart();
+                Clock.Run(false, 1.0, runTime);
+                timer.Stop();
+                if (i ==0) continue;
+
+                var elapsed = timer.ElapsedMilliseconds;
+                totalTime += elapsed;
+                Console.WriteLine($"Iteration {i:D2}: RunTime {runTime / 1000000}ms. Elapsed: {elapsed} ms.");
+            }
+
+            var averageTime = totalTime / 10;
+            Console.WriteLine($"Average Time: {averageTime} ms.");
+            Console.WriteLine($"Realtime Performance: {100.0 * 1000 / averageTime:F1}%");
+            Environment.Exit(0);
         }
 
         private static void PrintStatus(MicrocontrollerDebugger debugger)
