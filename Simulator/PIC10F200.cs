@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Friendly.Electronics.Simulator.Instructions;
 using Friendly.Electronics.Simulator.Registers;
@@ -104,7 +103,7 @@ namespace Friendly.Electronics.Simulator
             AllInstructions.Add("RETLW", new RETLW(this));
 
             // Internal Oscillator.
-            Oscillator = new InternalOscillator(1000000);
+            Oscillator = new InternalOscillator(4000000);
             Oscillator.LogicLevelChanged += OnClock;
             
             _programCounterUpdater = new ProgramCounterUpdater(this);
@@ -113,9 +112,22 @@ namespace Friendly.Electronics.Simulator
             _instructionExecutor = new InstructionExecutor(this, _instructionDecoder);
             Clock += _instructionExecutor.Update;
             
-            Clock += level => { if (level) Console.WriteLine($"Clock: {Simulator.Clock.Now.ToString("N0")}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
+            //Clock += level => { if (level) Console.WriteLine($"Clock: {Simulator.Clock.Now.ToString("N0")}: PC: {AllRegisters["PC"].Value.ToString("X4")}, IR: {AllRegisters["IR"].Value.ToString("X4")}"); };
 
             Oscillator.Start();
+        }
+
+        public override void Program(int address, int value)
+        {
+            if (address >= 8190 && address <= 8191)
+                return;
+            
+            if ((address & 1) == 0)
+                // LO BYTE
+                ProgramMemory[address >> 1].Value = (ProgramMemory[address >> 1].Value & 0xFF00) | (value & 0xFF);
+            else
+                // HI BYTE
+                ProgramMemory[address >> 1].Value = (ProgramMemory[address >> 1].Value & 0x00FF) | ((value & 0xFF) << 8);
         }
     }
 }

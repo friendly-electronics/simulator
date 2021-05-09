@@ -9,4 +9,11 @@
       <ProjectReference Include="..\Simulator\Simulator.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="test.hex" />
+      <Content Include="test.hex">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

@@ -26,7 +26,6 @@ namespace Friendly.Electronics.Simulator.Instructions
                 _instruction = _instructionDecoder.Decode(instructionCode);    // Decode instruction.
                 _instruction.Prepare(instructionCode);
                 _completed = false;
-                Console.WriteLine(_instruction.Name);
             }
 
             if (!_completed)

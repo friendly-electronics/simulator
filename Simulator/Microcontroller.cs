@@ -23,5 +23,10 @@ namespace Friendly.Electronics.Simulator
             _currentClockLevel = level;
             Clock?.Invoke(level);
         }
+
+        public virtual void Program(int address, int value)
+        {
+            ProgramMemory[address].Value = value;
+        }
     }
 }
