@@ -14,16 +14,6 @@ namespace Friendly.Electronics.Simulator
         protected internal HardwareStack Stack;
         protected internal InternalOscillator Oscillator;
 
-        protected event LogicLevelChanged Clock;
-
-        private bool _currentClockLevel;
-        protected void OnClock(bool level)
-        {
-            if (_currentClockLevel == level) return;
-            _currentClockLevel = level;
-            Clock?.Invoke(level);
-        }
-
         public virtual void Program(int address, int value)
         {
             ProgramMemory[address].Value = value;

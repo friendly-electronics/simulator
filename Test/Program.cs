@@ -16,17 +16,17 @@ namespace Test
             var speed = 1.0; // 1.0 / 1000000 * 4;    // 1 instruction / sec.
             var runTime = 16666666;
 
-            TestPerformance();
+            TestPerformance(micro);
             
             while (true)
             {
-                Clock.Run(true, speed, runTime);
+                Run(micro);
                 PrintStatus(debugger);
             }
             
         }
 
-        private static void TestPerformance()
+        private static void TestPerformance(PIC10F200 micro)
         {
             var runTime = 1000000000;
             var timer = new Stopwatch();
@@ -35,7 +35,7 @@ namespace Test
             for (var i = 0; i < 11; i++)
             {
                 timer.Restart();
-                Clock.Run(false, 1.0, runTime);
+                Run(micro);
                 timer.Stop();
                 if (i ==0) continue;
 
@@ -50,10 +50,15 @@ namespace Test
             Environment.Exit(0);
         }
 
+        private static void Run(PIC10F200 micro)
+        {
+            for (var cycle = 0; cycle < 1000000; cycle++)
+                micro.Update();
+        }
+
         private static void PrintStatus(MicrocontrollerDebugger debugger)
         {
             Console.SetCursorPosition(0, 0);
-            Console.Write($"Time: {Clock.Now / 1000000000.0:F2}");
             for (var i = 0; i < debugger.RegisterFile.Count; i++)
             {
                 var register = debugger.RegisterFile[i];

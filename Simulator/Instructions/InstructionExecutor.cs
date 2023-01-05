@@ -1,4 +1,3 @@
-using System;
 using Friendly.Electronics.Simulator.Registers;
 
 namespace Friendly.Electronics.Simulator.Instructions
@@ -18,9 +17,9 @@ namespace Friendly.Electronics.Simulator.Instructions
             _ir = microcontroller.AllRegisters["IR"];
         }
         
-        public void Update(bool level)
+        public void Update()
         {
-            if (_cycle == 0 && level)
+            if (_cycle == 0)
             {
                 var instructionCode = _ir.Value;
                 _instruction = _instructionDecoder.Decode(instructionCode);    // Decode instruction.
@@ -29,11 +28,9 @@ namespace Friendly.Electronics.Simulator.Instructions
             }
 
             if (!_completed)
-                _completed = _instruction.Execute(level, _cycle);
+                _completed = _instruction.Execute(true, _cycle);
 
-            if ((_cycle & 0b_11) == 0b_11 && _completed && !level)
-                _cycle = 0;
-            else if (!level)
+            if (!_completed)
                 _cycle++;
         }
     }
