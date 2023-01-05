@@ -10,6 +10,6 @@ namespace Friendly.Electronics.Simulator.Instructions
         public string Name { get; }
 
         public abstract void Prepare(int instructionCode);
-        public abstract bool Execute(bool level, int cycle);
+        public abstract bool Execute(int cycle);
     }
 }

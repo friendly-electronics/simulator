@@ -31,9 +31,9 @@ namespace Friendly.Electronics.Simulator.Instructions
             _b = (instructionCode & 0b_000011_100000) >> 5;
         }
 
-        public override bool Execute(bool level, int cycle)
+        public override bool Execute(int cycle)
         {
-            if (cycle == 3 && level)
+            if (cycle == 3)
             {
                 _registerFile[_f].Value |= 1 << _b;
                 return true;

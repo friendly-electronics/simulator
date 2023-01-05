@@ -28,7 +28,7 @@ namespace Friendly.Electronics.Simulator.Instructions
             }
 
             if (!_completed)
-                _completed = _instruction.Execute(true, _cycle);
+                _completed = _instruction.Execute(_cycle);
 
             if (!_completed)
                 _cycle++;

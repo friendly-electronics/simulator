@@ -35,9 +35,9 @@ namespace Friendly.Electronics.Simulator.Instructions
             _k = instructionCode & 0b_000111_111111;
         }
 
-        public override bool Execute(bool level, int cycle)
+        public override bool Execute(int cycle)
         {
-            if (cycle == 7 && level)
+            if (cycle == 7)
             {
                 _pcl.Value = _pc.Value = ((_status.Value & 0b_0110_0000) << 4) | _k;
                 return true;

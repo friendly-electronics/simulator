@@ -36,14 +36,14 @@ namespace Friendly.Electronics.Simulator.Instructions
             _k = instructionCode & 0b_000011_111111;
         }
 
-        public override bool Execute(bool level, int cycle)
+        public override bool Execute(int cycle)
         {
             switch (cycle)
             {
-                case 3 when level:
+                case 3:
                     _w.Value = _k;
                     return false;
-                case 7 when level:
+                case 7:
                     _pcl.Value = _pc.Value = _stack.Pop();
                     return true;
                 default:

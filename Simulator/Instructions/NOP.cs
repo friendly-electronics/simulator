@@ -20,7 +20,7 @@ namespace Friendly.Electronics.Simulator.Instructions
         {
         }
 
-        public override bool Execute(bool level, int cycle)
+        public override bool Execute(int cycle)
         {
             return true;
         }

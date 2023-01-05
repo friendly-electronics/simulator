@@ -28,9 +28,9 @@ namespace Friendly.Electronics.Simulator.Instructions
         {
         }
 
-        public override bool Execute(bool level, int cycle)
+        public override bool Execute(int cycle)
         {
-            if (cycle == 3 && level)
+            if (cycle == 3)
             {
                 _option.Value = _w.Value;
                 return true;
