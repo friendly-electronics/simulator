@@ -33,13 +33,8 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
-                _registerFile[_f].Value &= ~(1 << _b);
-                return true;
-            }
-
-            return false;
+            _registerFile[_f].Value &= ~(1 << _b);
+            return true;
         }
     }
 }

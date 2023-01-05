@@ -32,18 +32,13 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
-                // Execute Operation.
-                _registerFile[_f].Value = 0;
-            
-                // Update C, DC, Z flags.
-                var z = 0b_0000_0100;
-                _status.Value = (_status.Value & 0b_1111_1011) | z;
-                return true;
-            }
+            // Execute Operation.
+            _registerFile[_f].Value = 0;
 
-            return false;
+            // Update C, DC, Z flags.
+            var z = 0b_0000_0100;
+            _status.Value = (_status.Value & 0b_1111_1011) | z;
+            return true;
         }
     }
 }

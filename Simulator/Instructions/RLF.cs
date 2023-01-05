@@ -40,24 +40,19 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
-                // Execute Operation.
-                var r = _registerFile[_f].Value;
-                var c = _status.Value & 0b_0000_0001;
-                var result = (r << 1) | c;
-                if (_d == 0)
-                    _w.Value = result;
-                else
-                    _registerFile[_f].Value = result;
+            // Execute Operation.
+            var r = _registerFile[_f].Value;
+            var c = _status.Value & 0b_0000_0001;
+            var result = (r << 1) | c;
+            if (_d == 0)
+                _w.Value = result;
+            else
+                _registerFile[_f].Value = result;
 
-                // Update C flag.
-                c = (result & 0b_1_0000_0000) > 0 ? 1 : 0;
-                _status.Value = (_status.Value & 0b_1111_1110) | c;
-                return true;
-            }
-
-            return false;
+            // Update C flag.
+            c = (result & 0b_1_0000_0000) > 0 ? 1 : 0;
+            _status.Value = (_status.Value & 0b_1111_1110) | c;
+            return true;
         }
     }
 }

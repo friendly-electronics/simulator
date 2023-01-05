@@ -41,17 +41,14 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            switch (cycle)
+            if (cycle == 0)
             {
-                case 3:
-                    _stack.Push(_pc.Value);
-                    return false;
-                case 7:
-                    _pcl.Value = _pc.Value = ((_status.Value & 0b_0110_0000) << 4) | _k;
-                    return true;
-                default:
-                    return false;
+                _stack.Push(_pc.Value);
+                return false;
             }
+
+            _pcl.Value = _pc.Value = ((_status.Value & 0b_0110_0000) << 4) | _k;
+            return true;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
+            if (cycle == 0)
             {
                 // Execute Operation.
                 var r = _registerFile[_f].Value;
@@ -51,16 +51,12 @@ namespace Friendly.Electronics.Simulator.Instructions
                     _w.Value = result;
                 else
                     _registerFile[_f].Value = result;
-            
+
                 // Complete instruction execution if result is not zero.
-                if ((result & 0b_1111_1111) != 0)
-                    return true;
+                return (result & 0b_1111_1111) != 0;
             }
 
-            if (cycle >= 4)
-                return true;
-
-            return false;
+            return true;
         }
     }
 }

@@ -15,23 +15,24 @@ namespace Friendly.Electronics.Simulator.Instructions
         {
             _instructionDecoder = instructionDecoder;
             _ir = microcontroller.AllRegisters["IR"];
+            _completed = true;
         }
         
         public void Update()
         {
-            if (_cycle == 0)
+            // if previous instruction is completed then fetch next instruction.
+            if (_completed)
             {
                 var instructionCode = _ir.Value;
                 _instruction = _instructionDecoder.Decode(instructionCode);    // Decode instruction.
                 _instruction.Prepare(instructionCode);
                 _completed = false;
+                _cycle = 0;
             }
-
-            if (!_completed)
-                _completed = _instruction.Execute(_cycle);
-
-            if (!_completed)
-                _cycle++;
+            
+            // Execute instruction.
+            _completed = _instruction.Execute(_cycle);
+            _cycle++;
         }
     }
 }

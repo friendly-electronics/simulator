@@ -38,17 +38,14 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            switch (cycle)
+            if (cycle == 0)
             {
-                case 3:
-                    _w.Value = _k;
-                    return false;
-                case 7:
-                    _pcl.Value = _pc.Value = _stack.Pop();
-                    return true;
-                default:
-                    return false;
+                _w.Value = _k;
+                return false;
             }
+
+            _pcl.Value = _pc.Value = _stack.Pop();
+            return true;
         }
     }
 }

@@ -38,20 +38,14 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
-                // Execute Operation.
-                var r = _registerFile[_f].Value;
-                var result = ((r & 0b_1111_0000) >> 4) | ((r & 0b_0000_1111) << 4);
-                if (_d == 0)
-                    _w.Value = result;
-                else
-                    _registerFile[_f].Value = result;
-                
-                return true;
-            }
-
-            return false;
+            // Execute Operation.
+            var r = _registerFile[_f].Value;
+            var result = ((r & 0b_1111_0000) >> 4) | ((r & 0b_0000_1111) << 4);
+            if (_d == 0)
+                _w.Value = result;
+            else
+                _registerFile[_f].Value = result;
+            return true;
         }
     }
 }

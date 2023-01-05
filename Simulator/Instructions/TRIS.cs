@@ -32,13 +32,8 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
-                _trisRegisters[_f].Value = _w.Value;
-                return true;
-            }
-
-            return false;
+            _trisRegisters[_f].Value = _w.Value;
+            return true;
         }
     }
 }

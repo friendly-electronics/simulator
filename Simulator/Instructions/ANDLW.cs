@@ -33,20 +33,15 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
-                // Execute Operation.
-                var w = _w.Value;
-                var result = w & _k;
-                    _w.Value = result;
-                
-                // Update Z flags.
-                var z = result == 0 ? 0b_0000_0100 : 0;
-                _status.Value = (_status.Value & 0b_1111_1011) | z;
-                return true;
-            }
+            // Execute Operation.
+            var w = _w.Value;
+            var result = w & _k;
+            _w.Value = result;
 
-            return false;
+            // Update Z flags.
+            var z = result == 0 ? 0b_0000_0100 : 0;
+            _status.Value = (_status.Value & 0b_1111_1011) | z;
+            return true;
         }
     }
 }

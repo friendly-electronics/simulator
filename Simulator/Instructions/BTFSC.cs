@@ -37,15 +37,10 @@ namespace Friendly.Electronics.Simulator.Instructions
 
         public override bool Execute(int cycle)
         {
-            if (cycle == 3)
-            {
+            if (cycle == 0)
                 return (_registerFile[_f].Value & (1 << _b)) > 0;
-            }
-
-            if (cycle >= 4)
-                return true;
-
-            return false;
+            
+            return true;
         }
     }
 }
