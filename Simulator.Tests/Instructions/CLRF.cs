@@ -15,16 +15,15 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
         {
             Assert.IsTrue(f >= 0 && f <= 31, "Parameter f should be in range [0, 31].");
 
-            Clock.Reset();
             var micro = new PIC10F200();
             var debugger = new MicrocontrollerDebugger(micro);
             
             debugger.ProgramMemory[0].Value = 0b_000001_100000 | f;    // 0000 011f ffff
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             debugger.RegisterFile[f].Value = 0b_1111_1111;
             debugger.AllRegisters["STATUS"].Value = 0b_0000_0000;
 
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             Assert.AreEqual(0, debugger.RegisterFile[f].Value, "CLRF should clear [f] register.");
             Assert.AreEqual(0b_0000_0100, debugger.AllRegisters["STATUS"].Value, "CLRF should set Z flag in STATUS register.");
         }

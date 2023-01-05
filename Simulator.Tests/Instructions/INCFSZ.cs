@@ -18,20 +18,19 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
             Assert.IsTrue(f >= 0 && f <= 31, "Parameter f should be in range [0, 31].");
             Assert.IsTrue(d >= 0 && d <= 1, "Parameter d should be in range [0, 1].");
             
-            Clock.Reset();
             var micro = new PIC10F200();
             var debugger = new MicrocontrollerDebugger(micro);
             
             debugger.ProgramMemory[0].Value = 0b_001111_000000 | (d << 5) | f;    // INCFSZ d, f.  0011 11df ffff
             debugger.ProgramMemory[1].Value = 0b_001010_000000 | (1 << 5) | 17;    // INCF 1, 2.    0010 10df ffff
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             debugger.AllRegisters["W"].Value = 0b_1100_1100;
             debugger.RegisterFile[f].Value = value;
             debugger.AllRegisters["STATUS"].Value = 0b_1111_1011 | ((z ? 0 : 1) << 2);
             debugger.RegisterFile[17].Value = 1;
             
-            Clock.Run(false, runTime: 4000);
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
+            micro.Update();
             
             if (d == 0)
             {

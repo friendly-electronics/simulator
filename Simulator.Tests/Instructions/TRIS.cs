@@ -14,16 +14,15 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
         {
             Assert.IsTrue(f >= 0 && f <= 7, "Parameter f should be in range [0, 7].");
             
-            Clock.Reset();
             var micro = new PIC10F200();
             var debugger = new MicrocontrollerDebugger(micro);
             
             debugger.ProgramMemory[0].Value = 0b_0000_0000_0000 | f;
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             debugger.AllRegisters["W"].Value = value;
 
             var status = debugger.AllRegisters["STATUS"].Value;
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             Assert.AreEqual(value, debugger.TrisRegisters[f].Value, "TRIS should load W into TRIS[f] register.");
             Assert.AreEqual(value, debugger.AllRegisters["W"].Value, "TRIS should not change W register.");
             Assert.AreEqual(status, debugger.AllRegisters["STATUS"].Value, "TRIS should not change STATUS register.");

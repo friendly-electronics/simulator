@@ -17,16 +17,15 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
         {
             Assert.IsTrue(f >= 0 && f <= 31, "Parameter f should be in range [0, 31].");
             
-            Clock.Reset();
             var micro = new PIC10F200();
             var debugger = new MicrocontrollerDebugger(micro);
             
             debugger.ProgramMemory[0].Value = 0b_0000_0010_0000 | f;    // 0000 001f ffff
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             debugger.AllRegisters["W"].Value = value;
 
             var status = debugger.AllRegisters["STATUS"].Value;
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             Assert.AreEqual(value, debugger.RegisterFile[f].Value, "MOVWF should load W into TRIS[f] register.");
             Assert.AreEqual(value, debugger.AllRegisters["W"].Value, "MOVWF should not change W register.");
             Assert.AreEqual(status, debugger.AllRegisters["STATUS"].Value, "MOVWF should not change STATUS register.");

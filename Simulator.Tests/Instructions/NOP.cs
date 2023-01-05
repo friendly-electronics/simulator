@@ -13,10 +13,10 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
             var debugger = new MicrocontrollerDebugger(micro);
             
             debugger.ProgramMemory[0].Value = 0b_000000_000000;
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
 
             var status = debugger.AllRegisters["STATUS"].Value;
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             Assert.AreEqual(status, debugger.AllRegisters["STATUS"].Value, "NOP should not change STATUS.");
         }
     }

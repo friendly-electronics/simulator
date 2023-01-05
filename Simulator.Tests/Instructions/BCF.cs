@@ -19,16 +19,15 @@ namespace Friendly.Electronics.Simulator.Tests.Instructions
             Assert.IsTrue(f >= 0 && f <= 31, "Parameter f should be in range [0, 31].");
             Assert.IsTrue(b >= 0 && b <= 7, "Parameter b should be in range [0, 7].");
 
-            Clock.Reset();
             var micro = new PIC10F200();
             var debugger = new MicrocontrollerDebugger(micro);
             
             debugger.ProgramMemory[0].Value = 0b_010000_000000 | (b << 5) | f;    // 0100 bbbf ffff
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             debugger.RegisterFile[f].Value = value;
             debugger.AllRegisters["STATUS"].Value = 0b_0000_0000;
 
-            Clock.Run(false, runTime: 4000);
+            micro.Update();
             Assert.AreEqual(result, debugger.RegisterFile[f].Value, "BCF should clear bit b in [f] register.");
             Assert.AreEqual(0b_0000_0000, debugger.AllRegisters["STATUS"].Value, "BCF should not change STATUS register.");
         }
